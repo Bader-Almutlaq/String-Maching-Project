@@ -109,12 +109,44 @@ def _bad_character_heuristic(pattern):
     return bad_char
 
 
+def _good_suffix_heuristic(pattern):
+    """
+    Generate a good suffix heuristic table for a given pattern.
+
+    This function creates a list where the i-th element represents the length of the longest proper
+    suffix of the pattern that matches a prefix of the pattern starting at index i.
+
+    Args:
+        pattern (str): The pattern string for which the good suffix heuristic table is to be generated.
+
+    Returns:
+        list: A list where the i-th element represents the length of the longest proper suffix of the pattern
+            that matches a prefix of the pattern starting at index i.
+    """
+    m = len(pattern)
+    suffixes = [0] * m
+    borders = [0] * (m + 1)
+
+    # Calculate the suffixes array
+    for i in range(m - 1, -1, -1):
+        j = i
+        while j >= 0 and pattern[j] == pattern[j - m + i + 1]:
+            j -= 1
+        suffixes[m - i - 1] = i - j
+
+    # Calculate the borders array
+    for i in range(m):
+        borders[m - suffixes[i]] = i
+
+    return borders
+
+
 def Boyer_Moore_matcher(text, pattern):
     """
     Implement the Boyer-Moore pattern matching algorithm.
 
     This function searches for occurrences of a pattern within a text using the Boyer-Moore algorithm.
-    It utilizes a bad character heuristic for efficient searching.
+    It utilizes both bad character and good suffix heuristics for efficient searching.
 
     Args:
         text (str): The text string in which to search for occurrences of the pattern.
@@ -126,7 +158,11 @@ def Boyer_Moore_matcher(text, pattern):
     """
     n = len(text)
     m = len(pattern)
+    if m == 0:
+        return 0
+
     bad_char = _bad_character_heuristic(pattern)
+    good_suffix = _good_suffix_heuristic(pattern)
 
     s = 0
     while s <= n - m:
@@ -136,8 +172,17 @@ def Boyer_Moore_matcher(text, pattern):
         if j < 0:
             return s
         else:
-            s += max(1, j - bad_char.get(text[s + j], -1))
+            bc_shift = j - bad_char.get(text[s + j], -1)
+            gs_shift = j - good_suffix[j + 1]
+            s += max(bc_shift, gs_shift)
+
     return -1
+
+
+# Example usage:
+text = "ababcababcabcabc"
+pattern = "abcabc"
+print(Boyer_Moore_matcher(text, pattern))
 
 
 def generate_text(size):
