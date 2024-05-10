@@ -200,7 +200,7 @@ def main():
         "Boyer Moore": Boyer_Moore_matcher,
     }
     pattern = generate_text(PATTERN_SIZE)
-    sizes = [size for size in range(10000, 5000000, 10000)]
+    sizes = [size for size in range(10000, 1000000, 10000)]
     results = {function: [] for function in functions.keys()}
 
     print("Start the test")
@@ -208,13 +208,13 @@ def main():
         print(f"Processing document of size {size} ...")
         text = generate_text(size)
         for function_name, function in functions.items():
-            time = 0
+            total_time = 0
             for _ in range(REPETITIONS):
                 start_time = time()
                 function(text, pattern)
                 end_time = time()
-                time += end_time - start_time 
-            results[function_name].append(time/REPETITIONS)
+                total_time += end_time - start_time 
+            results[function_name].append(total_time/REPETITIONS)
     print("Test is done")
     plot_results(sizes, results)
 
