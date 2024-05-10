@@ -3,7 +3,7 @@ from time import time
 import matplotlib.pyplot as plt
 
 PATTERN_SIZE = 10
-
+REPETITIONS = 5
 
 def brute_force_matcher(text, pattern):
     """
@@ -200,17 +200,20 @@ def main():
         "Boyer Moore": Boyer_Moore_matcher,
     }
     pattern = generate_text(PATTERN_SIZE)
-    sizes = [size for size in range(100, 100000, 500)]
+    sizes = [size for size in range(10000, 5000000, 10000)]
     results = {function: [] for function in functions.keys()}
 
     print("Start the test")
     for size in sizes:
         text = generate_text(size)
         for function_name, function in functions.items():
-            start_time = time()
-            function(text, pattern)
-            end_time = time()
-            results[function_name].append(end_time - start_time)
+            time = 0
+            for _ in range(REPETITIONS):
+                start_time = time()
+                function(text, pattern)
+                end_time = time()
+                time += end_time - start_time 
+            results[function_name].append(time/REPETITIONS)
     print("test is done")
     plot_results(sizes, results)
 
