@@ -63,11 +63,11 @@ def KMP_matcher(text, pattern):
     This function performs Knuth-Morris-Pratt (KMP) pattern matching on the given text.
 
     Args:
-        text: The text string.
-        pattern: The pattern string to search for.
+        text (str): The text string.
+        pattern (str): The pattern string to search for.
 
     Returns:
-        The index of the first occurrence of the pattern in the text, or -1 if not found.
+        int: The index of the first occurrence of the pattern in the text, or -1 if not found.
     """
     n = len(text)
     m = len(pattern)
@@ -79,13 +79,13 @@ def KMP_matcher(text, pattern):
         if pattern[j] == text[i]:
             i += 1
             j += 1
-        if j == m:
-            return i - j
-        elif i < n and pattern[j] != text[i]:
+        else:
             if j != 0:
                 j = lps_array[j - 1]
             else:
                 i += 1
+        if j == m:
+            return i - j
     return -1
 
 
