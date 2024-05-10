@@ -205,6 +205,7 @@ def main():
 
     print("Start the test")
     for size in sizes:
+        print(f"Processing document of size {size} ...")
         text = generate_text(size)
         for function_name, function in functions.items():
             time = 0
@@ -214,7 +215,7 @@ def main():
                 end_time = time()
                 time += end_time - start_time 
             results[function_name].append(time/REPETITIONS)
-    print("test is done")
+    print("Test is done")
     plot_results(sizes, results)
 
 
