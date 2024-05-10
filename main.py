@@ -178,13 +178,6 @@ def Boyer_Moore_matcher(text, pattern):
 
     return -1
 
-
-# Example usage:
-text = "ababcababcabcabc"
-pattern = "abcabc"
-print(Boyer_Moore_matcher(text, pattern))
-
-
 def generate_text(size):
     return "".join(random.choice("abcdefghijklmnopqrstuvwxyz") for _ in range(size))
 
