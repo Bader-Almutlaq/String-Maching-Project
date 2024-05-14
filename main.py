@@ -251,9 +251,6 @@ def generate_text(size):
     return text
 
 
-import matplotlib.pyplot as plt
-
-
 def plot_results(sizes, results):
     """
     Plot the performance results of string matching algorithms.
@@ -311,7 +308,7 @@ def main():
     pattern = generate_text(PATTERN_SIZE)
 
     # Define the range of text sizes for testing
-    sizes = [size for size in range(10000, 1000000, 10000)]
+    sizes = [size for size in range(1000, 100000, 1000)]
 
     # Initialize a dictionary to store results for each algorithm
     results = {function: [] for function in functions.keys()}
