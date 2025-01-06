@@ -43,3 +43,13 @@ A highly efficient algorithm that uses **bad character** and **good suffix** heu
 git clone https://github.com/your-username/string-matching-algorithms.git
 cd string-matching-algorithms
 ```
+### Run the Comparison:
+Execute the Python script to generate the performance comparison:
+```bash
+python compare_algorithms.py
+```
+
+This will run each of the three string matching algorithms on randomly generated text and pattern data, and display the results in a graph showing the time taken by each algorithm as the text size increases.
+
+## Example Output:
+The output will include a Matplotlib plot comparing the runtime of each algorithm. It will demonstrate how the runtime increases with the text size for each algorithm, showing which is most efficient under various conditions.
